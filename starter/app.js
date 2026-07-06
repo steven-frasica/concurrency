@@ -18,31 +18,102 @@ async function fetchUserData(id) {
   });
 }
 
-async function showFollowers() {
+
+async function main () {
   const ids = await fetchFollowerIds();
-  const users = await Promise.all(
-    ids.map((id) => fetchUserData(id)),
-  );
-  for (const user of users) {
-    // console.log(user)
-    const parentEl = document.querySelector(".followers")
-    parentEl.innerHTML = users.map((user) => {
-      return `<div class="profile">
-          <img class="profile__avatar" src=${user.avatar}>
+  const users = await Promise.all((ids).map((id) => fetchUserData(id)))
+  document.querySelector('.followers').innerHTML = createUser(users);
+}
+
+
+const createUser = (users) => {
+  return users.map((user) => {
+    return `<div class="profile">
+          <img
+            class="profile__avatar"
+            src=${user.avatar}
+          />
           <div class="profile__info">
             <p class="profile__username">${user.username}</p>
             <p class="profile__bio">${user.bio}</p>
           </div>
           <button class="profile__unfollow">Remove</button>
-        </div>`;
-    })
-  }
-
+        </div>`
+  })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// async function showFollowers() {
+//   const ids = await fetchFollowerIds();
+//   const users = await Promise.all(
+//     ids.map((id) => fetchUserData(id)),
+//   );
+//   const parentEl = document.querySelector(".followers")
+//   for (const user of users) {
+//     parentEl.innerHTML = users.map((user) => {
+//       return `<div class="profile">
+//           <img class="profile__avatar" src=${user.avatar}>
+//           <div class="profile__info">
+//             <p class="profile__username">${user.username}</p>
+//             <p class="profile__bio">${user.bio}</p>
+//           </div>
+//           <button class="profile__unfollow">Remove</button>
+//         </div>`;
+//     })
+//   }
+
+// }
+
+// async function main() {
+//   const users = (await fetchFollowerIds()).map((id) => fetchUserData(id));
+//   const usersData = await Promise.all(users);
+//   return (document.querySelector(".followers").innerHTML = usersData.map());
+// }
+
+// function userHtml(user) {
+//   return ` <div class="profile">
+//                <img class="profile__avatar" src=${user.avatar}>
+//                <div class="profile__info">
+//                  <p class="profile__username">${user.username}</p>
+//                  <p class="profile__bio">${user.bio}</p>
+//                </div>
+//                <button class="profile__unfollow">Remove</button>
+//              </div>`;
+// }
 
 // Put your code here
 // ------------------
-showFollowers();
+// showFollowers();
+main();
 // ------------------
 
 // Fake data - do not access USERS directly in your solution
