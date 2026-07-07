@@ -18,59 +18,96 @@ async function fetchUserData(id) {
   });
 }
 
-
-async function main () {
+async function main() {
   const ids = await fetchFollowerIds();
-  const users = await Promise.all((ids).map((id) => fetchUserData(id)))
-  document.querySelector('.followers').innerHTML = createUser(users);
+  console.log(ids);
+  const users = await Promise.all(ids.map((id) => fetchUserData(id)));
+  console.log(users);
+  showUsers(users);
 }
 
-
-const createUser = (users) => {
-  return users.map((user) => {
-    return `<div class="profile">
-          <img
-            class="profile__avatar"
-            src=${user.avatar}
-          />
-          <div class="profile__info">
-            <p class="profile__username">${user.username}</p>
-            <p class="profile__bio">${user.bio}</p>
-          </div>
-          <button class="profile__unfollow">Remove</button>
-        </div>`
-  })
+function showUsers(users) {
+  document.querySelector(".followers").innerHTML = users.map(
+    (user) => `<div class="profile">
+           <img class="profile__avatar" src=${user.avatar} />
+           <div class="profile__info">
+             <p class="profile__username">${user.username}</p>
+             <p class="profile__bio">${user.bio}</p>
+           </div>
+           <button class="profile__unfollow">Remove</button>
+     </div>
+    `,
+  ).join('');
 }
 
+// async function main() {
+//   // fetch all ids
+//   const ids = await fetchFollowerIds();
+//   // Fetch all users using the ids
+//   const users = await Promise.all(ids.map((id) => fetchUserData(id)));
 
+//   document.querySelector(".followers").innerHTML = showUsers(users);
+// }
 
+// function showUsers(users) {
+// return users.map((user) => {
+//     return `<div class="profile">
+//            <img
+//              class="profile__avatar"
+//              src=${user.avatar}
+//            />
+//            <div class="profile__info">
+//              <p class="profile__username">${user.username}</p>
+//              <p class="profile__bio">${user.bio}</p>
+//            </div>
+//            <button class="profile__unfollow">Remove</button>
+//          </div>`
+//   }).join('');
+// }
+// async function main() {
+//   const ids = await fetchFollowerIds();
+//   console.log(ids);
+//   const users = await Promise.all((ids).map((id) => fetchUserData(id)))
+//   showUsers(users)
+// }
 
+// function showUsers(users) {
+//   document.querySelector(".followers").innerHTML = users.map((user) => {
+//     return `<div class="profile">
+//           <img
+//             class="profile__avatar"
+//             src=${user.avatar}
+//           />
+//           <div class="profile__info">
+//             <p class="profile__username">${user.username}</p>
+//             <p class="profile__bio">${user.bio}</p>
+//           </div>
+//           <button class="profile__unfollow">Remove</button>
+//         </div>`
+//   })
+// }
 
+// async function main () {
+//   const ids = await fetchFollowerIds();
+//   const users = await Promise.all((ids).map((id) => fetchUserData(id)))
+//   document.querySelector('.followers').innerHTML = createUser(users);
+// }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// const createUser = (users) => {
+//   return users.map((user) => {
+//     return `<div class="profile">
+//           <img
+//             class="profile__avatar"
+//             src=${user.avatar}
+//           />
+//           <div class="profile__info">
+//             <p class="profile__username">${user.username}</p>
+//             <p class="profile__bio">${user.bio}</p>
+//           </div>
+//           <button class="profile__unfollow">Remove</button>
+//         </div>`
+//   })
+// }
 
 // async function showFollowers() {
 //   const ids = await fetchFollowerIds();
